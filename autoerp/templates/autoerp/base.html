@@ -21,15 +21,12 @@
 						<span class="sr-only">Toggle navigation</span>
 						<span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#">AutoERP</a>
+					<a class="navbar-brand" href="{% url 'index' %}">AutoERP</a>
 				</div>
 				<div id="navbar" class="collapse navbar-collapse">
 			{% block navbar %}
 					<ul class="nav navbar-nav">
-						<li><a href="#">Home</a></li>
-						{% if 'contact' in apps %}
-							<li><a href="{% url 'contact:index' %}">Contact</a></li>
-						{% endif %}
+						{% if 'contact' in apps %}	<li><a href="{% url 'contact:index' %}">Contact</a></li>{% endif %}
 						<li>
 							<a href="{% url 'logout' %}" class="btn btn-inverse btn-lg">
 								<span class="glyphicon glyphicon-off"></span>
@@ -41,7 +38,8 @@
 			</div>
 		</nav>
 
-
+			{% block subnavbar %}
+			{% endblock %}
 
 		<div class="container">
 			{% block content %}

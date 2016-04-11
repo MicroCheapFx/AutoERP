@@ -1,5 +1,55 @@
 {% extends "autoerp/base.html" %}
-{% block content %}
-<h1>CONTACT.INDEX</h1>
+{% load app_filters %}
+
+{% block subnavbar %}
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#">Contacts</a>
+		</div>
+		<ul class="nav navbar-nav">
+			{# <li class="active"><a href="#">Home</a></li> #}
+			<li><a href="{% url 'contact:personne_index'  %}">Personnels</a></li>
+			<li><a href="{% url 'contact:entreprise_index'  %}">Entreprises</a></li>
+			<li><a href="#">Page 3</a></li>
+		</ul>
+	</div>
+</nav>
 {% endblock %}
 
+{% block content %}
+
+<div class="container">
+	<table class="table table-condensed">
+		<thead>
+			<tr>
+				<th></th>
+				<th>Nom</th>
+				<th>Email</th>
+			</tr>
+		</thead>
+		{% for contact in contacts %}
+		<tr>
+			<td>
+				{% if contact.prenom %}
+					<span class="glyphicon glyphicon-user">
+				{% endif %}
+				{% if contact.siret %}
+					<span class="glyphicon glyphicon-briefcase">
+				{% endif %}
+			</td>
+			<td>{{ contact }}</td>
+			<td>{{ contact.email }}</td>
+		</tr>
+			
+		{% endfor %}
+	</table>
+</div>
+
+<h1>
+		{% for truc in test %}
+		{{ truc }}
+		{% endfor %}
+</h1>
+
+{% endblock %}

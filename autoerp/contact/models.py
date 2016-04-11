@@ -1,8 +1,10 @@
 from django.db import models
+from polymorphic.models import PolymorphicModel
 
 # Create your models here.
 
-class Contact(models.Model):
+
+class Contact(PolymorphicModel):
     nom = models.CharField(max_length=254)
     adresse1 = models.CharField(max_length=254, blank=True)
     adresse2 = models.CharField(max_length=254, blank=True)
