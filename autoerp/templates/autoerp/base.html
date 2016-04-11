@@ -26,11 +26,18 @@
 					<a class="navbar-brand" href="#">AutoERP</a>
 				</div>
 				<div id="navbar" class="collapse navbar-collapse">
+			{% block navbar %}
 					<ul class="nav navbar-nav">
 						<li class="active"><a href="#">Home</a></li>
 						<li><a href="#about">About</a></li>
 						<li><a href="#contact">Contact</a></li>
+						<li>
+							<a href="{% url 'logout' %}" class="btn btn-inverse btn-lg">
+								<span class="glyphicon glyphicon-off"></span>
+							</a>
+						</li>
 					</ul>
+			{% endblock %}
 				</div><!--/.nav-collapse -->
 			</div>
 		</nav>
