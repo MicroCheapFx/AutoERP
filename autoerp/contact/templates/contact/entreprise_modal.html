@@ -1,0 +1,69 @@
+{% comment %}
+{% endcomment %}
+
+<div class="container">
+	<button type="button" class="btn btn-default btn-md list-group-item" data-toggle="modal" data-target="#myModal{{ contact.id }}">
+		<span class="glyphicon glyphicon-briefcase"></span> {{ contact }}</button>
+
+		<div class="modal fade" id="myModal{{ contact.id }}" role="dialog">
+			<div class="modal-dialog modal-lg">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">
+							{{ contact }}{% if contact.raison_sociale %} - {{ contact.raison_sociale }}{% endif %}</a>
+							
+						</h4>
+					</div>
+					<div class="modal-body">
+						<div class="container-fluid">
+							<div class="col-md-8">
+								{% if contact.siret %}<strong>N° SIRET: </strong>{{ contact.siret }}<br><br>{% endif %}
+									{% if contact.adresse1 or contact.adresse2 or contact.code_postal or contact.ville %}
+										{% if contact.adresse1 %}{{ contact.adresse1 }}<br>{% endif %}
+										{% if contact.adresse2 %}{{ contact.adresse2 }}<br>{% endif %}
+										{% if contact.code_postal %}{{ contact.code_postal }}<br>{% endif %}
+										{% if contact.ville %}{{ contact.ville }}<br>{% endif %}
+										<br>
+									{% endif %}
+
+									{% if contact.telephone or contact.telephone_pro or contact.telephone_mobile %}
+										{% if contact.telephone %}<strong>Téléphone: </strong>{{ contact.telephone }}<br>{% endif %}
+										{% if contact.telephone_pro %}<strong>Téléphone professionnel: </strong>{{ contact.telephone_pro }}<br>{% endif %}
+										{% if contact.telephone_mobile %}<strong>Téléphone mobile: </strong>{{ contact.telephone_mobile }}<br>{% endif %}
+										{% if contact.fax %}<strong>Fax: </strong>{{ contact.fax }}<br>{% endif %}
+										<br>
+									{% endif %}
+
+									{% if contact.email or contact.website %}
+										{% if contact.email %}<strong>Email: </strong>{{ contact.email }}<br>{% endif %}
+										{% if contact.website %}<strong>Site web: </strong>{{ contact.website }}<br>{% endif %}
+										<br>
+									{% endif %}
+								
+							</div>
+							<div class="col-md-4">
+								<ul>
+								{% for job in contact.emploi_set.all %}
+								<li><a href="#"><span class="glyphicon glyphicon-user"></span> {{ job.personne }}</a><br><small>{{ job.poste }}</small></li>
+								{% endfor %}
+								</ul>
+							</div>
+							<div class="container">
+								{{ contact.note }}
+							</div>
+
+						</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-edit"></span></button>
+					<button type="button" class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-trash"></span></button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+</div>

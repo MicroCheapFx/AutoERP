@@ -24,4 +24,4 @@ urlpatterns = [
 from django.conf import settings
 
 if 'contact' in settings.INSTALLED_APPS:
-    urlpatterns.append(url(r'^contact', include('contact.urls', namespace='contact')))
+    urlpatterns.append(url(r'^contact/', include('contact.urls', namespace='contact')))

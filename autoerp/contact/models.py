@@ -19,24 +19,32 @@ class Contact(PolymorphicModel):
     website = models.URLField(blank=True)
 
 
-class Personne(Contact):
+class People(Contact):
     prenom = models.CharField(max_length=254, blank=True)
 
     def __str__(self):
         return (self.prenom+' '+self.nom)
 
+    def isPeople(self):
+        return True
 
-class Entreprise(Contact):
+
+class Company(Contact):
     siret = models.PositiveIntegerField()
-    employes = models.ManyToManyField(Personne, through='Emploi')
+    raison_sociale = models.CharField(max_length=254)
+    employes = models.ManyToManyField(People, through='Emploi')
 
     def __str__(self):
         return self.nom
 
+    def isCompany(self):
+        return True
+
+
 
 class Emploi(models.Model):
-    personne = models.ForeignKey(Personne, on_delete=models.CASCADE)
-    entreprise = models.ForeignKey(Entreprise, on_delete=models.CASCADE)
+    personne = models.ForeignKey(People, on_delete=models.CASCADE)
+    entreprise = models.ForeignKey(Company, on_delete=models.CASCADE)
     poste = models.CharField(max_length=254, blank=True)
     
     def __str__(self):

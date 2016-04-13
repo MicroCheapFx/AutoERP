@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Contact, Personne, Entreprise, Emploi
+from .models import Contact, People, Company, Emploi
 
 # Register your models here.
 
@@ -9,7 +9,7 @@ class EmploiInline(admin.TabularInline):
     extra = 0
 
 
-class PersonneAdmin(admin.ModelAdmin):
+class PeopleAdmin(admin.ModelAdmin):
     fieldsets = [
             (None,               {'fields': (('prenom', 'nom'))}),
             ('Adresse Postale',{
@@ -33,7 +33,7 @@ class PersonneAdmin(admin.ModelAdmin):
     pass
 
 
-class EntrepriseAdmin(admin.ModelAdmin):
+class CompanyAdmin(admin.ModelAdmin):
     fieldsets = [
             (None,               {'fields': (('nom', 'siret'), )}),
             ('Adresse Postale',{
@@ -57,5 +57,5 @@ class EntrepriseAdmin(admin.ModelAdmin):
     pass
 
 
-admin.site.register(Personne, PersonneAdmin)
-admin.site.register(Entreprise, EntrepriseAdmin)
+admin.site.register(People, PeopleAdmin)
+admin.site.register(Company, CompanyAdmin)
