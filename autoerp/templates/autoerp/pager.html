@@ -1,0 +1,19 @@
+{% comment %}
+{% endcomment %}
+<div class="col-sm-8">
+<ul class="pagination pagination-sm">
+	<li class="previous"><a href="{% url pager.pagerUrl  page='1' itemsByPage=pager.itemsByPage %}"><span class="glyphicon glyphicon-fast-backward"></span></a></li>
+	{# <li class="previous"><a href="{% url pager.pagerUrl  page=page itemsByPage=pager.itemsByPage %}"><span class="glyphicon glyphicon-backward"></span></a></li>A #}
+
+	{% for page in pager.pageList %}
+		<li><a href="{% url pager.pagerUrl page pager.itemsByPage %}">{{ page }}</a></li>
+	{% endfor %}
+
+	{# <li class="next"><a href="{% url pager.pagerUrl page=pager.pageList.4 itemsByPage=pager.itemsByPage %}"><span class="glyphicon glyphicon-forward"></span></a></li> #}
+	<li class="next"><a href="{% url pager.pagerUrl page=pager.lastPage itemsByPage=pager.itemsByPage %}"><span class="glyphicon glyphicon-fast-forward"></span></a></li>
+
+</div>
+<div class="col-sm-4">
+	items par page:
+</div>
+</ul>

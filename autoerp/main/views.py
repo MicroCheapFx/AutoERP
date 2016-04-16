@@ -6,6 +6,33 @@ from django.http import HttpResponseRedirect, HttpResponse
 
 # Create your views here.
 
+def pagerDict(itemClass, page, itemsByPage, pagerUrl):
+    itemList = []
+    for i in itemClass.objects.all():
+        itemList.append(i.id)
+
+    lastPage = int((len(itemList) -1) / int(itemsByPage)) +1
+    print(len(itemList))
+    
+
+    pageList = []
+    pageListWidth = 7
+    for i in range(0,pageListWidth):
+        n = int(page) - int(pageListWidth / 2) + i
+        if n > 0 and n <= lastPage:
+            pageList.append(n)
+
+    pager = {
+            'position':     page,  
+            'lastPage':     lastPage,
+            'itemsByPage':  itemsByPage,
+            'itemClass':    itemClass,
+            'pageList':     pageList,
+            'pagerUrl':     pagerUrl
+            }
+    return pager
+
+
 def user_login(request):
     context = RequestContext(request)
     if request.method == 'POST':

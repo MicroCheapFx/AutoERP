@@ -1,14 +1,24 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Contact, People, Company, Job
+from main.views import pagerDict
 
 # Create your views here.
 
-@login_required
-def index(request):
-    contacts = Contact.objects.all()
 
-    return render(request, 'contact/index.html', {'contacts' : contacts, })
+
+@login_required
+def index(request,page=1,itemsByPage=5):
+    firstItem = (int(page) - 1) * int(itemsByPage)
+    print('firstItem : '+str(firstItem)) # DEBUG
+    lastItem = int(firstItem + int(itemsByPage))
+    print('lastItem : '+str(lastItem)) # DEBUG
+    contacts = Contact.objects.all()[firstItem:lastItem]
+    context = {
+            'contacts' : contacts, 
+            'pager':     pagerDict(Contact, page, itemsByPage, 'contact:index'),   
+            }
+    return render(request, 'contact/index.html', context)
 
 
 @login_required
@@ -19,11 +29,11 @@ def company_index(request):
 
 
 @login_required
-def company_view(request, company_id):
+def company_view(request, item_id):
     #contacts = Company.objects.get(id=company_id)
-    contact = get_object_or_404(Company, id=company_id)
+    contact = get_object_or_404(Company, id=item_id)
 
-    return render(request, 'contact/company_viem.html', {'company' : company, })
+    return render(request, 'contact/view.html', {'contact' : contact, })
 
 
 @login_required
