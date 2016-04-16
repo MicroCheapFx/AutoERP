@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import Contact, People, Company, Emploi
+from .models import Contact, People, Company, Job
 
 # Create your views here.
 
@@ -20,9 +20,18 @@ def company_index(request):
 
 @login_required
 def company_view(request, company_id):
-    contacts = Company.objects.get(id=company_id)
+    #contacts = Company.objects.get(id=company_id)
+    contact = get_object_or_404(Company, id=company_id)
 
-    return render(request, 'contact/index.html', {'company' : company, })
+    return render(request, 'contact/company_viem.html', {'company' : company, })
+
+
+@login_required
+def company_edit(request, company_id):
+    #contacts = Company.objects.get(id=company_id)
+    contact = get_object_or_404(Company, id=company_id)
+
+    return render(request, 'contact/company_form.html', {'company' : company, })
 
 
 @login_required

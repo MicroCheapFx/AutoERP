@@ -5,25 +5,25 @@ from polymorphic.models import PolymorphicModel
 
 
 class Contact(PolymorphicModel):
-    nom = models.CharField(max_length=254)
-    adresse1 = models.CharField(max_length=254, blank=True)
-    adresse2 = models.CharField(max_length=254, blank=True)
-    code_postal = models.CharField(max_length=254, blank=True)
-    ville = models.CharField(max_length=254, blank=True)
+    name = models.CharField(max_length=254)
+    address_1 = models.CharField(max_length=254, blank=True)
+    address_2 = models.CharField(max_length=254, blank=True)
+    zipcode = models.CharField(max_length=254, blank=True)
+    city = models.CharField(max_length=254, blank=True)
     telephone = models.CharField(max_length=254, blank=True)
     telephone_mobile = models.CharField(max_length=254, blank=True)
     telephone_pro = models.CharField(max_length=25, blank=True)
     fax = models.CharField(max_length=254, blank=True)
     email = models.EmailField(blank=True)
-    note = models.TextField(blank=True)
     website = models.URLField(blank=True)
+    note = models.TextField(blank=True)
 
 
 class People(Contact):
-    prenom = models.CharField(max_length=254, blank=True)
+    first_name = models.CharField(max_length=254, blank=True)
 
     def __str__(self):
-        return (self.prenom+' '+self.nom)
+        return (self.first_name+' '+self.name)
 
     def isPeople(self):
         return True
@@ -32,26 +32,26 @@ class People(Contact):
 class Company(Contact):
     siret = models.PositiveIntegerField()
     raison_sociale = models.CharField(max_length=254)
-    employes = models.ManyToManyField(People, through='Emploi')
+    peoples = models.ManyToManyField(People, through='Job')
 
     def __str__(self):
-        return self.nom
+        return self.name
 
     def isCompany(self):
         return True
 
 
 
-class Emploi(models.Model):
-    personne = models.ForeignKey(People, on_delete=models.CASCADE)
-    entreprise = models.ForeignKey(Company, on_delete=models.CASCADE)
-    poste = models.CharField(max_length=254, blank=True)
+class Job(models.Model):
+    peoples = models.ForeignKey(People, on_delete=models.CASCADE)
+    companies = models.ForeignKey(Company, on_delete=models.CASCADE)
+    situation = models.CharField(max_length=254, blank=True)
     
     def __str__(self):
-        #if self.poste: intitule = self.contact+', '+self.poste+' chez '+self.entreprise
-        #else: intitule = self.contact+' chez '+self.entreprise
+        #if self.situation: intitule = self.contact+', '+self.situation+' chez '+self.company
+        #else: intitule = self.contact+' chez '+self.company
 
-        if self.poste: intitule = str(self.personne)+', '+str(self.poste)+' chez '+str(self.entreprise)
-        else: intitule = str(self.personne)+' chez '+str(self.entreprise)
+        if self.situation: intitule = str(self.peoples)+', '+str(self.situation)+' chez '+str(self.companies)
+        else: intitule = str(self.peoples)+' chez '+str(self.companies)
         return intitule
 

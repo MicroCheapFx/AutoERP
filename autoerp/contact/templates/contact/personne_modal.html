@@ -13,17 +13,17 @@
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal">&times;</button>
 						<h4 class="modal-title">
-							{{ contact }}{% for job in contact.emploi_set.all %}, {{ job.poste }}	chez <a href="#"><span class="glyphicon glyphicon-briefcase"></span>{{ job.entreprise }}</a>
+							{{ contact }}{% for job in contact.job_set.all %}, {{ job.situation }}	chez <a href="#"><span class="glyphicon glyphicon-briefcase"></span>{{ job.companies }}</a>
 						{% endfor %}</h4>
 					</div>
 					<div class="modal-body">
 						<div class="container-fluid">
 							<div class="container">
-									{% if contact.adresse1 or contact.adresse2 or contact.code_postal or contact.ville %}
-										{% if contact.adresse1 %}{{ contact.adresse1 }}<br>{% endif %}
-										{% if contact.adresse2 %}{{ contact.adresse2 }}<br>{% endif %}
-										{% if contact.code_postal %}{{ contact.code_postal }}<br>{% endif %}
-										{% if contact.ville %}{{ contact.ville }}<br>{% endif %}
+									{% if contact.address_1 or contact.address_2 or contact.zipcode or contact.city %}
+										{% if contact.address_1 %}{{ contact.address_1 }}<br>{% endif %}
+										{% if contact.address_2 %}{{ contact.address_2 }}<br>{% endif %}
+										{% if contact.zipcode %}{{ contact.zipcode }}<br>{% endif %}
+										{% if contact.city %}{{ contact.city }}<br>{% endif %}
 										<br>
 									{% endif %}
 

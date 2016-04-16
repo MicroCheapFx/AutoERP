@@ -1,20 +1,20 @@
 from django.contrib import admin
 
-from .models import Contact, People, Company, Emploi
+from .models import Contact, People, Company, Job
 
 # Register your models here.
 
-class EmploiInline(admin.TabularInline):
-    model = Emploi
+class JobInline(admin.TabularInline):
+    model = Job
     extra = 0
 
 
 class PeopleAdmin(admin.ModelAdmin):
     fieldsets = [
-            (None,               {'fields': (('prenom', 'nom'))}),
+            (None,               {'fields': (('first_name', 'name'))}),
             ('Adresse Postale',{
                 'classes': ('collapse', ),
-                'fields': (('adresse1', 'adresse2', ), ('code_postal', 'ville'))
+                'fields': (('address_1', 'address_2', ), ('zipcode', 'city'))
                 }),
             ('Téléphone / Fax',{
                 'classes': ('collapse', ),
@@ -29,16 +29,16 @@ class PeopleAdmin(admin.ModelAdmin):
                 'fields': (('note', )),
                 }),
             ]
-    inlines = [EmploiInline]
+    inlines = [JobInline]
     pass
 
 
 class CompanyAdmin(admin.ModelAdmin):
     fieldsets = [
-            (None,               {'fields': (('nom', 'siret'), )}),
+            (None,               {'fields': (('name', 'siret'), )}),
             ('Adresse Postale',{
                 'classes': ('collapse', ),
-                'fields': (('adresse1', 'adresse2', ), ('code_postal', 'ville'), )
+                'fields': (('address_1', 'address_2', ), ('zipcode', 'city'), )
                 }),
             ('Téléphone / Fax',{
                 'classes': ('collapse', ),
@@ -53,7 +53,7 @@ class CompanyAdmin(admin.ModelAdmin):
                 'fields': (('note', )),
                 }),
             ]
-    inlines = [EmploiInline]
+    inlines = [JobInline]
     pass
 
 
